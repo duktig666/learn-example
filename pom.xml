@@ -11,6 +11,7 @@
     <modules>
         <module>data-structure</module>
         <module>arithmetic</module>
+        <module>rabbitmq</module>
     </modules>
 
     <parent>
@@ -260,6 +261,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--lombok插件-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

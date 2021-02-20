@@ -1,0 +1,20 @@
+server:
+  port: 9001
+
+spring:
+  #项目名
+  application:
+    name: rabbitmq-example
+  #rabbitmq的相关配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: example
+    password: example
+    virtual-host: /example
+    # ------- 消息确认配置项 --------
+    # 确认消息已发送到交换机
+    #  publisher-confirms: true
+    # 确认消息已发送队列
+    #publisher-returns: true
+
