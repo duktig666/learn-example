@@ -5,13 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.rsw</groupId>
-    <artifactId>learn-example</artifactId>
+    <artifactId>com.rsw.rabbitmq.learn-example</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>data-structure</module>
-        <module>arithmetic</module>
         <module>rabbitmq</module>
+        <module>java-core</module>
     </modules>
 
     <parent>
