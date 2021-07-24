@@ -12,6 +12,7 @@
         <module>rabbitmq</module>
         <module>java-core</module>
         <module>distributed-programme</module>
+        <module>zookeeper</module>
     </modules>
 
     <parent>
