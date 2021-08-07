@@ -150,7 +150,8 @@ public class Downloader {
     }
 
     public static void main(String[] args) throws IOException {
-        new Downloader("http://js.xiazaicc.com//down2/ucliulanqi_downcc.zip").start();
+        new Downloader("https://vv-1255812373.cos.ap-beijing.myqcloud" +
+                ".com/pdf/Java%20%E9%9D%A2%E7%BB%8F%E6%89%8B%E5%86%8C.pdf").start();
     }
 
 }
