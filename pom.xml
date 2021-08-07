@@ -13,6 +13,7 @@
         <module>java-core</module>
         <module>distributed-programme</module>
         <module>zookeeper</module>
+        <module>downloader</module>
     </modules>
 
     <parent>
