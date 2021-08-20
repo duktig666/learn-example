@@ -14,7 +14,6 @@ public class DistributeServer {
     private static final String CONNECT_STRING = "127.0.0.1:2181";
     private static final int SESSION_TIMEOUT = 2000;
     private ZooKeeper zk = null;
-    private String parentNode = "/servers";
 
     /**
      * 创建到 zk 的客户端连接
@@ -33,6 +32,7 @@ public class DistributeServer {
      * @param hostname 主机地址
      */
     public void registerServer(String hostname) throws Exception {
+        String parentNode = "/servers";
         String create = zk.create(parentNode + "/server", hostname.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL);
         System.out.println(hostname + " is online " + create);
