@@ -14,6 +14,7 @@
         <module>distributed-programme</module>
         <module>zookeeper</module>
         <module>downloader</module>
+        <module>Redis</module>
     </modules>
 
     <parent>
