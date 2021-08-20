@@ -16,7 +16,7 @@ public enum UniqueIDEnum {
     /**
      * 测试单号
      */
-    TS_ORDER("YF_", "yyyyMMdd", 7, 3, 21),
+    TS_ORDER("YF", "yyyyMMdd", 7, 3, 20),
     ;
 
     /**
