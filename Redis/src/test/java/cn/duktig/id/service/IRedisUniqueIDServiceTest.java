@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.*;
+
 /**
  * description: 测试Redis生成唯一ID
  *
@@ -60,6 +64,71 @@ public class IRedisUniqueIDServiceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 单机Redis
+     * 单线程生成10W个 分布式ID 测速
+     * 大约为：110353 ms
+     */
+    @Test
+    public void generateUniqueIdForMore() {
+        LocalDateTime startTime = LocalDateTime.now();
+        for (int i = 0; i < 100000; i++) {
+            String id = redisUniqueIDService.generateUniqueId(UniqueIDEnum.TS_ORDER);
+            System.out.println(id);
+        }
+        LocalDateTime endTime = LocalDateTime.now();
+        // 计算时间差值
+        long minutes = Duration.between(startTime, endTime).toMillis();
+        // 输出
+        System.out.println("生成10万个分布式id所用的时间：" + minutes + " ms");
+    }
+
+    /**
+     * 单机Redis
+     * 线程池开10个线程生成10W个 分布式ID 测速
+     * 大约为：106959 ms
+     */
+    @Test
+    public void generateUniqueIdForThreadPoolExecutor() {
+        ThreadPoolExecutor threadPoolExecutor = null;
+
+        //创建线程池
+        threadPoolExecutor = new ThreadPoolExecutor(10,
+                20,
+                10,
+                TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(20),
+                new ThreadPoolExecutor.CallerRunsPolicy());
+        LocalDateTime startTime = LocalDateTime.now();
+        for (int i = 0; i < 100000; i++) {
+            FutureTask<String> futureTask = new FutureTask<>(new ThreadPoolTask());
+            threadPoolExecutor.execute(futureTask);
+            try {
+                String id = futureTask.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        threadPoolExecutor.shutdown();
+        LocalDateTime endTime = LocalDateTime.now();
+        // 计算时间差值
+        long minutes = Duration.between(startTime, endTime).toMillis();
+        // 输出
+        System.out.println("线程池 生成10万个分布式id所用的时间：" + minutes + " ms");
+
+    }
+
+    class ThreadPoolTask implements Callable<String> {
+
+        @Override
+        public String call() {
+            String id = redisUniqueIDService.generateUniqueId(UniqueIDEnum.TS_ORDER);
+            System.out.println(Thread.currentThread().getName() + "---" + id);
+            return id;
+        }
+
     }
 
 }
