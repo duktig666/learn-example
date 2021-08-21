@@ -3,7 +3,6 @@ package cn.dukrig.id.snowflake;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * description:Hutool的雪花算法实现
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
  * Date: 2021/7/18 17:48
  **/
 @Slf4j
-@Component
 public class HutoolSnowflake {
 
     public static void main(String[] args) {

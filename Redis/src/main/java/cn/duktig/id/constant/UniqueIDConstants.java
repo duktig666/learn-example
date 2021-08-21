@@ -1,4 +1,4 @@
-package cn.duktig.id.utils;
+package cn.duktig.id.constant;
 
 /**
  * description:唯一id 常量

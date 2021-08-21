@@ -1,5 +1,6 @@
 package cn.duktig.id.utils;
 
+import cn.duktig.id.constant.UniqueIDConstants;
 import cn.duktig.id.enums.UniqueIDEnum;
 
 import java.time.LocalDateTime;
@@ -77,7 +78,6 @@ public class RedisUniqueIDUtil {
         }
         return sb.toString();
     }
-
 
 }
 

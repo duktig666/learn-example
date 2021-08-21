@@ -2,6 +2,7 @@ package cn.duktig.learn.id;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -24,12 +25,20 @@ public class ZookeeperUniqueID implements Watcher {
 
     /** 用户生成序号的节点 */
     private final String DEFAULT_PATH = "/uniqueId";
+    /** 根节点 */
+    private final String ROOT_PATH = "/uniqueId";
 
     public ZookeeperUniqueID() {
         try {
             zooKeeper = new ZooKeeper(IP, 6000, this);
             //等待zk正常连接后，往下走程序
             countDownLatch.await();
+            // 判断根节点是否存在
+            Stat stat = zooKeeper.exists(ROOT_PATH, false);
+            if (stat == null) {
+                // 创建一下根节点
+                zooKeeper.create(ROOT_PATH, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,14 +76,14 @@ public class ZookeeperUniqueID implements Watcher {
         String path = "";
         //创建临时有序节点
         try {
-            path = zooKeeper.create(DEFAULT_PATH, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,
+            path = zooKeeper.create(ROOT_PATH + DEFAULT_PATH, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE,
                     CreateMode.EPHEMERAL_SEQUENTIAL);
             log.info("zk创建临时有序节点：{}", path);
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
         //截取defaultPath的长度
-        return path.substring(DEFAULT_PATH.length());
+        return path.substring(ROOT_PATH.length() + DEFAULT_PATH.length());
     }
 
 }

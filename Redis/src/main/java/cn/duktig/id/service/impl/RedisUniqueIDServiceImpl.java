@@ -1,10 +1,10 @@
 package cn.duktig.id.service.impl;
 
 import cn.duktig.common.utils.RedisUtils;
+import cn.duktig.id.constant.UniqueIDConstants;
 import cn.duktig.id.enums.UniqueIDEnum;
 import cn.duktig.id.service.IRedisUniqueIDService;
 import cn.duktig.id.utils.RedisUniqueIDUtil;
-import cn.duktig.id.utils.UniqueIDConstants;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

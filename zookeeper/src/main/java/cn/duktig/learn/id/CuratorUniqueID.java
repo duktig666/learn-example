@@ -1,5 +1,6 @@
 package cn.duktig.learn.id;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
@@ -7,28 +8,24 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /**
  * description:利用 Curator框架 生成唯一id （底层使用zk）
  *
  * @author RenShiWei
  * Date: 2021/8/20 10:05
  **/
+@Slf4j
 public class CuratorUniqueID {
 
     private static CuratorFramework curatorFrameworkClient;
 
     private static RetryPolicy retryPolicy;
 
-    private static ExecutorService executorService;
-
     private static final String IP = "127.0.0.1:2181";
 
-    private static String ROOT = "/root";
+    private static String ROOT = "/uniqueId-curator";
 
-    private static String NODE_NAME = "idgenerator";
+    private static String NODE_NAME = "/uniqueId";
 
     static {
         retryPolicy = new ExponentialBackoffRetry(1000, 3);
@@ -41,7 +38,6 @@ public class CuratorUniqueID {
                 .build();
         curatorFrameworkClient.start();
         try {
-            executorService = Executors.newFixedThreadPool(10);
             //请先判断父节点/root节点是否存在
             Stat stat = curatorFrameworkClient.checkExists().forPath(ROOT);
             if (stat == null) {
@@ -59,36 +55,16 @@ public class CuratorUniqueID {
      */
     public static String generateId() {
         String backPath = "";
-
-        String fullPath = ROOT.concat("/").concat(NODE_NAME);
+        String fullPath = ROOT.concat(NODE_NAME);
         try {
-            // 关键点：创建持久顺序节点
-            backPath = curatorFrameworkClient.create().withMode(CreateMode.PERSISTENT_SEQUENTIAL).forPath(fullPath,
+            // 关键点：创建临时顺序节点
+            backPath = curatorFrameworkClient.create().withMode(CreateMode.EPHEMERAL_SEQUENTIAL).forPath(fullPath,
                     null);
-            //为防止生成的节点浪费系统资源，故生成后异步删除此节点
-            String finalBackPath = backPath;
-            executorService.execute(() -> {
-                try {
-                    curatorFrameworkClient.delete().forPath(finalBackPath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            String id = CuratorUniqueID.splitId(backPath);
-            System.out.println("生成的ID=" + id);
+            log.info("zk创建临时有序节点：{}", backPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return backPath;
-    }
-
-    private static String splitId(String path) {
-        int index = path.lastIndexOf(NODE_NAME);
-        if (index >= 0) {
-            index += NODE_NAME.length();
-            return index <= path.length() ? path.substring(index) : "";
-        }
-        return path;
+        return backPath.substring(ROOT.length() + NODE_NAME.length());
     }
 
 }
