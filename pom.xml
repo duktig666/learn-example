@@ -17,6 +17,7 @@
         <module>Redis</module>
         <module>spring-writing</module>
         <module>springboot-starter</module>
+        <module>hadoop</module>
     </modules>
 
     <properties>
