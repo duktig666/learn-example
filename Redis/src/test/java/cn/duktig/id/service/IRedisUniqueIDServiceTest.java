@@ -2,11 +2,9 @@ package cn.duktig.id.service;
 
 import cn.duktig.id.enums.UniqueIDEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,7 +16,6 @@ import java.util.concurrent.*;
  * @author RenShiWei
  * Date: 2021/08/20 17:26
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public class IRedisUniqueIDServiceTest {
