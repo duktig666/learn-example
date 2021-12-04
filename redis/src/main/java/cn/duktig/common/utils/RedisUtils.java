@@ -786,6 +786,71 @@ public class RedisUtils {
         return redisAtomicLong.addAndGet(increment);
     }
 
+    // --------------------- zset -----------------------------
+
+    /**
+     * 向zset增加/修改元素，并设置其分数
+     *
+     * @param key   键
+     * @param value 值
+     * @param score 排名分数
+     * @return 是否新增/修改成功
+     */
+    public boolean zadd(String key, Object value, double score) {
+        return redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    /**
+     * 一个字段排序，需要并列时，按照时间正序排
+     *
+     * @param key   键
+     * @param value 值
+     * @param score 排名分数
+     * @param time  13位毫秒时间戳
+     * @return 是否新增/修改成功
+     */
+    public boolean zaddByTimeAsc(String key, Object value, double score, long time) {
+        long maxTime = 9_999_999_999_999L;
+        score = score * Math.pow(10, 15) + (maxTime - time);
+        return redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    /**
+     * 一个字段排序，需要并列时，按照时间倒序排
+     *
+     * @param key   键
+     * @param value 值
+     * @param score 排名分数
+     * @param time  13位毫秒时间戳
+     * @return 是否新增/修改成功
+     */
+    public boolean zaddByTimeDesc(String key, Object value, double score, long time) {
+        score = score * Math.pow(10, 15) + time;
+        return redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    /**
+     * 在zset中为指定元素加分
+     *
+     * @param key   键
+     * @param value 值
+     * @param score 排名分数
+     * @return 增加后的分数
+     */
+    public Double zincrby(String key, Object value, double score) {
+        return redisTemplate.opsForZSet().incrementScore(key, value, score);
+    }
+
+    /**
+     * 按照分数 从高到低 返回集合中的所有元素（不带分数）
+     *
+     * @param key
+     * @return 倒序排列的所有元素
+     */
+    public Set<Object> zreverseRangeAll(String key) {
+        return redisTemplate.opsForZSet().reverseRange(key, 0, - 1);
+    }
+
     // ---------------------Redis 分布式锁-----------------------
 
     /**

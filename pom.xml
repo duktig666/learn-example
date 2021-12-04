@@ -14,7 +14,7 @@
         <module>distributed-programme</module>
         <module>zookeeper</module>
         <module>downloader</module>
-        <module>Redis</module>
+        <module>redis</module>
         <module>spring-writing</module>
         <module>springboot-starter</module>
         <module>hadoop</module>
