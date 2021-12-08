@@ -18,6 +18,7 @@
         <module>spring-writing</module>
         <module>springboot-starter</module>
         <module>hadoop</module>
+        <module>netty</module>
     </modules>
 
     <properties>
@@ -264,6 +265,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>

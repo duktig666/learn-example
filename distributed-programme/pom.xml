@@ -12,6 +12,11 @@
     <artifactId>distributed-programme</artifactId>
 
     <dependencies>
+        <!--lombok插件-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!--hutool 雪花算法-->
         <dependency>
             <groupId>cn.hutool</groupId>

@@ -1,15 +1,12 @@
 package cn.duktig.learn;
 
-import cn.duktig.RabbitMqAppRun;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * description:测试AmqpAdmin管理组件的使用
@@ -17,8 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author RenShiWei
  * Date: 2021/2/19 21:13
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RabbitMqAppRun.class)
+@SpringBootTest
 public class AmqpAdminTest {
 
     @Autowired

@@ -1,16 +1,13 @@
 package cn.duktig.learn;
 
-import cn.duktig.RabbitMqAppRun;
 import cn.duktig.learn.hello.producer.HelloProducer;
 import cn.duktig.learn.routing.producer.RoutingProducer;
 import cn.duktig.learn.subscribe.producer.SubscribeProducer;
 import cn.duktig.learn.topic.producer.TopicProducer;
 import cn.duktig.learn.work.producer.WorkProducer;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +18,7 @@ import java.util.Map;
  * @author RenShiWei
  * Date: 2021/2/18 16:14
  **/
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RabbitMqAppRun.class)
+@SpringBootTest
 public class RabbitMqSendMessageTest {
 
     @Autowired
