@@ -19,6 +19,7 @@
         <module>springboot-starter</module>
         <module>hadoop</module>
         <module>netty</module>
+        <module>sharding-jdbc</module>
     </modules>
 
     <properties>

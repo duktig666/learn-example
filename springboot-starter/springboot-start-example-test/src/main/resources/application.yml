@@ -1,0 +1,16 @@
+server:
+  port: 8000
+
+spring:
+  jackson:
+    time-zone: Asia/Shanghai
+    serialization:
+      # Date返回前端转时间戳 但不能解决LocalDateTime转时间戳（JacksonCustomizerConfig类解决）
+      write-dates-as-timestamps: true
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+  aop:
+    proxy-target-class: true

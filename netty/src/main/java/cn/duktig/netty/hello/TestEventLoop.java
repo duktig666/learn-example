@@ -1,4 +1,4 @@
-package cn.duktig.netty.example;
+package cn.duktig.netty.hello;
 
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
