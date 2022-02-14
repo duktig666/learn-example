@@ -22,6 +22,12 @@
             <artifactId>netty-all</artifactId>
             <version>4.1.39.Final</version>
         </dependency>
+        <!--  Google protobuf  -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.19.4</version>
+        </dependency>
     </dependencies>
 
 

@@ -1,0 +1,10 @@
+syntax = "proto3";// 指定protobuf版本
+option java_package = "cn.duktig.netty.protobuf.serverexample.protobuf";// 指定包名
+option java_outer_classname = "SubscribeReqProto";// 指定生成的类名
+
+message SubscribeReq {
+  int32 subReqID = 1;
+  string userName = 2;
+  string productName = 3;
+  string address = 4;
+}
