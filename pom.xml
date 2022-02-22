@@ -20,6 +20,7 @@
         <module>hadoop</module>
         <module>netty</module>
         <module>sharding-jdbc</module>
+        <module>kafka</module>
     </modules>
 
     <properties>
