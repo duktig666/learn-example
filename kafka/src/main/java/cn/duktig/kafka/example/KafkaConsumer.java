@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class KafkaConsumer {
 
     /**
-     * kafka的监听器，topic为"zhTest"，消费者组为"zhTestGroup"
+     * kafka的监听器，topic为"kafkaTest"，消费者组为"kafkaTestGroup"
      */
     @KafkaListener(topics = "kafkaTest", groupId = "kafkaTestGroup")
     public void listenKafkaTestGroup(ConsumerRecord<String, String> record, Acknowledgment ack) {
